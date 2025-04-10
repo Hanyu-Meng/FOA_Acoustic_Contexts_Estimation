@@ -1,0 +1,68 @@
+# dataset
+dataset:
+  base_dir: '/media/sbsprl/data/datasets/Spatial_Librispeech_lite'
+  # '/media/sbsprl/data/datasets/Spatial_Librispeech_lite'
+  # '/media/sbsprl/data/datasets/Babble_Noisy_Spatial_Librispeech_lite/train'
+  # /media/sbsprl/data/datasets/salsa_features/salsa/foa/16000fs_512nfft_760nhop_5cond_4000fmaxdoa
+  # babble noise: '/dlbimg/Babble_Noisy_Spatial_Librispeech_0_15_SNR_lite'
+  # pink noise: '/dlbimg/Pink_Noisy_Spatial_Librispeech_0_5_SNR_lite'
+  # pickle_dir: '/dlbimg/pk_data_lite/'
+  # clean dir: '/dlbimg/Spatial_Librispeech_lite'
+  sample_rate: 16000
+  type: lite
+
+
+train: True
+cont: False
+acoustic_param: speech/speaking_azimuth,speech/speaking_elevation
+# room/volume, room/surface_area
+# acoustics/drr_db, acoustics/t30_ms
+# speech/speaking_azimuth,speech/speaking_elevation
+# acoustics/c50_db,acoustics/drr_db,acoutics/edt_ms,acoustics/t20_ms,acoustics/t30_ms,acoustics/c50_db
+batch_size: 128
+num_epoch: 100
+# for DRR, 50 eps is enough to converge
+epoch: 0
+gpu_id: 0
+clip_value: 5.0
+model_path: /media/sbsprl/data/Hanyu/Acoustic_context_estimation/models/sscv_IID_spatial
+# /media/sbsprl/data/Hanyu/Acoustic_context_estimation/models/sscv_IID
+# /media/sbsprl/data/Hanyu/Acoustic_context_estimation/babble_noise/models/SDR_0_15
+# /media/sbsprl/data/Hanyu/Acoustic_context_estimation/
+# clean signal: /home/hmeng/git/Hanyu_Acoustic_Context/models
+# pink noise: /home/hmeng/git/Hanyu_Acoustic_Context/pink_noise_new/models/SDR_0_15
+# babble noise: /home/hmeng/git/Hanyu_Acoustic_Context/babble_noise/logs/SDR_0_15
+log_path: /media/sbsprl/data/Hanyu/Acoustic_context_estimation/logs/sscv_IID_spatial
+# /media/sbsprl/data/Hanyu/Acoustic_context_estimation/babble_noise/logs/SDR_0_15
+# /media/sbsprl/data/Hanyu/Acoustic_context_estimation/logs/sscv_spectral
+# clean signal: /home/hmeng/git/Hanyu_Acoustic_Context/logs
+# pink noise: /home/hmeng/git/Hanyu_Acoustic_Context/pink_noise_new/logs/SDR_0_15
+# babble noise: /home/hmeng/git/Hanyu_Acoustic_Context/babble_noise/logs/SDR_0_15
+max_to_keep: 10 # save the last 10 epoches
+num_workers: 4
+single_channel: False
+context_type: orientation
+task: Ori
+model_type: Conv3D # BLSTM, CRNN, CRNN_PV, ParamNet, Conv3D, Hybrid_Conv, CNN
+loss: MSE
+
+optimizer:
+  lr: 0.001
+  optim: Adam
+  half_lr: True
+  patience: 5
+
+CRNN:
+  input_channels: 1  # For MFCC input, typically 1 channel
+  num_classes: 1  # Number of output classes
+
+PV:
+  channels: 4
+  cov_to_pv_trainable: False
+  band_matrix_trainable: False
+  smooth_pv: True
+  normalise: False
+  pv_stack_bands: False
+  dt_ms: 47.5
+
+

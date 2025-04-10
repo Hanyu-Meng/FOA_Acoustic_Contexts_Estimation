@@ -1,0 +1,54 @@
+# dataset
+dataset:
+  base_dir: '/media/sbsprl/data/datasets/Spatial_Librispeech_lite'
+  # '/media/sbsprl/data/datasets/Babble_Noisy_Spatial_Librispeech_0_5_SNR_lite'
+  sample_rate: 16000
+  type: lite
+
+
+acoustic_param: speech/speaking_azimuth,speech/speaking_elevation
+# acoustics/c50_db,acoustics/t30_ms
+# speech/speaking_azimuth,speech/speaking_elevation
+# acoustics/c50_db,acoustics/drr_db,acoustics/edt_ms,acoustics/t20_ms,acoustics/t30_ms,acoustics/c50_db
+batch_size: 25
+num_epoch: 100
+epoch: 26
+gpu_id: 0
+clip_value: 5.0
+model_path: /media/sbsprl/data/Hanyu/Acoustic_context_estimation/models/sscv_IID_spatial
+# /media/sbsprl/data/Hanyu/Acoustic_context_estimation/models/sscv_spectral_spatial/room/Volume/CRNN_PV
+# /media/sbsprl/data/Hanyu/Acoustic_context_estimation/babble_noise/models/SDR_0_15
+# /media/sbsprl/data/Hanyu/Acoustic_context_estimation/models
+# /home/hmeng/git/Hanyu_Acoustic_Context/models_tune_2207
+# /home/hmeng/git/Hanyu_Acoustic_Context/pink_noise/models/SDR_0_5
+log_path: /media/sbsprl/data/Hanyu/Acoustic_context_estimation/logs/sscv_IID_spatial
+# /home/hmeng/git/Hanyu_Acoustic_Context/logs_tune_2207
+# /home/hmeng/git/Hanyu_Acoustic_Context/pink_noise/logs/SDR_0_5
+max_to_keep: 10  # save the last 10 epoches
+num_workers: 4
+single_channel: False
+context_type: orientation
+task: Ori
+model_type: Conv3D # BLSTM, CRNN, ParamNet, Conv3D, Hybrid_Conv
+loss: MSE
+
+optimizer:
+  lr: 0.001
+  optim: Adam
+  half_lr: True
+  patience: 10
+
+CRNN:
+  input_channels: 1  # For MFCC input, typically 1 channel
+  num_classes: 1  # Number of output classes
+
+PV:
+  channels: 4
+  cov_to_pv_trainable: False
+  band_matrix_trainable: False
+  smooth_pv: True
+  normalise: False
+  pv_stack_bands: False
+  dt_ms: 47.5
+
+

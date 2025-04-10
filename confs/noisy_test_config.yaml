@@ -1,0 +1,58 @@
+# dataset
+dataset:
+  base_dir: '/dlbimg/Babble_Noisy_Spatial_Librispeech_5_10_SNR_lite'
+  sample_rate: 16000
+  type: lite
+
+# '/dlbimg/Pink_Noisy_Spatial_Librispeech_0_5_SNR_lite'
+# '/dlbimg/Spatial_Librispeech_lite'
+# '/dlbimg/Babble_Noisy_Spatial_Librispeech_5_10_SNR_lite'
+# '/dlbimg/Babble_Noisy_Spatial_Librispeech_10_15_SNR_lite'
+# '/dlbimg/Babble_Noisy_Spatial_Librispeech_0_5_SNR_lite'
+
+acoustic_param: room/volume
+# acoustics/c50_db,acoustics/t30_ms
+# acoustics/c50_db,acoustics/drr_db,acoustics/edt_ms,acoustics/t20_ms,acoustics/t30_ms,acoustics/c50_db
+batch_size: 46
+num_epoch: 100
+epoch: 18
+# the epoches to has the lowest validation loss
+gpu_id: 3
+clip_value: 5.0
+SNR: 5_to_10
+# inf
+# 0_to_5
+# 5_to_10
+# 10_to_15
+model_path: /home/hmeng/git/Hanyu_Acoustic_Context/babble_noise/models/SDR_0_15
+# /home/hmeng/git/Hanyu_Acoustic_Context/models_tune_2207
+# /home/hmeng/git/Hanyu_Acoustic_Context/pink_noise/models/SDR_0_5
+results_path: /home/hmeng/git/Hanyu_Acoustic_Context/babble_noise/results/SDR_0_15
+max_to_keep: 10  # save the last 10 epoches
+num_workers: 4
+single_channel: False
+context_type: room
+task: Volume
+model_type: Conv3D # BLSTM, CRNN, ParamNet, Conv3D, Hybrid_Conv
+loss: MSE
+
+optimizer:
+  lr: 0.005
+  optim: Adam
+  half_lr: True
+  patience: 10
+
+CRNN:
+  input_channels: 1  # For MFCC input, typically 1 channel
+  num_classes: 1  # Number of output classes
+
+PV:
+  channels: 4
+  cov_to_pv_trainable: False
+  band_matrix_trainable: False
+  smooth_pv: True
+  normalise: False
+  pv_stack_bands: False
+  dt_ms: 47.5
+
+
